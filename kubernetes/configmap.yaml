@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: csv-to-ad-users-sync-configmap
+data:
+  DC_URL: "ldap://192.168.48.50:389/"
+  AD_SUFFIX: "OU=Domain Users,DC=icore,DC=local"
+  DATA_FILE_PATH: "/home/cuser/1c_users_data/data.csv"

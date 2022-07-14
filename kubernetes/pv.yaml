@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: 1c-users-data
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadOnlyMany
+  nfs:
+    server: 10.30.10.65
+    path: "/1c_users_data"
+  mountOptions:
+    - nfsvers=3
+    - nolock

@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: csv-to-ad-users-sync
+spec:
+  schedule: "0 4 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: csv-to-ad-users-sync
+            image: cr.yandex/crp5d2524g8b2lcailgm/csv-to-ad-users-sync:0.0.1
+            imagePullPolicy: Always
+            envFrom:
+              - configMapRef:
+                  name: csv-to-ad-users-sync-configmap
+              - secretRef:
+                  name: csv-to-ad-users-sync-secret
+            volumeMounts:
+              - name: 1c-users-data
+                mountPath: "/home/cuser/1c_users_data"
+          volumes:
+            - name: 1c-users-data
+              persistentVolumeClaim:
+                claimName: 1c-users-data
+          restartPolicy: OnFailure
